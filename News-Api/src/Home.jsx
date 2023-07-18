@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ArticleListCard from './ArticleListCard.jsx';
 import Header from "./Header.jsx";
+import { dateFormatter } from "./dateUtils.js";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -32,7 +33,9 @@ const Home = () => {
             topic={topic}
             comment_count={comment_count}
             votes={votes}
-            created_at={created_at}
+            created_at={dateFormatter(created_at) 
+
+          }
             
            />
           </Link>
