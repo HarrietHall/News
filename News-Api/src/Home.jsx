@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import ArticleListCard from './ArticleListCard.jsx';
 import Header from "./Header.jsx";
 
-const ArticleList = () => {
+const Home = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,4 +42,4 @@ const ArticleList = () => {
   );
 };
 
-export default ArticleList;
+export default Home;
