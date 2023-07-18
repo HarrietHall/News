@@ -8,7 +8,7 @@ const Nav = () => {
         {" "}
       </Link>
       <Link to="/articles/:article_id" className="Nav_link">
-        Items 
+        Topics 
         {" "}
       </Link>
       <Link to="/users" className="Nav_link">

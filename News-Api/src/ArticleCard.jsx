@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getArticleById } from "./api.js";
 import { Link } from "react-router-dom";
 import './ArticleCard.css'
+import { dateFormatter } from "./dateUtils.js";
 
 const ArticleCard = ({}) => {
   const { article_id } = useParams();
@@ -16,7 +17,7 @@ const ArticleCard = ({}) => {
   return (
     <section className="ArticleCard">
       <h1>{articleData.title}</h1>
-      <h2>Author: {articleData.author}</h2>
+      <h2>Posted by {articleData.author} on {dateFormatter(articleData.created_at)}</h2>
       <p>Topic: {articleData.topic}</p>
       <p>{articleData.body}</p>
       <p>Votes: {articleData.votes}</p>
@@ -35,7 +36,7 @@ const ArticleCard = ({}) => {
         src={articleData.article_img_url}
         alt={`relating to ${articleData.topic}`}
       />
-      <p>created_at:{articleData.created_at}</p>
+      
     </section>
   );
 };
