@@ -15,7 +15,7 @@ const ArticleCard = ({}) => {
     });
   }, []);
   return (
-    <section className="ArticleCard">
+    <section className="articleCard">
       <h1>{articleData.title}</h1>
       <h2>Posted by {articleData.author} on {dateFormatter(articleData.created_at)}</h2>
       <p>Topic: {articleData.topic}</p>
@@ -23,7 +23,7 @@ const ArticleCard = ({}) => {
       <p>Votes: {articleData.votes}</p>
       <p>
         <Link
-          className="Link_to_comments"
+          className="link_to_comments"
           key={article_id}
           to={`/articles/${article_id}/comments`}
         >
