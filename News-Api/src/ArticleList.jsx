@@ -24,7 +24,7 @@ const ArticleList = () => {
     <section className="Articles">
       <Header title='Article List'/>
           <ul className="Article_list">            
-        {articles.map(({ article_id, title, author, topic, comment_count, votes,article_img_url, created_at }) => (
+        {articles.map(({ article_id, title, author, topic, comment_count, votes, created_at }) => (
            <Link key={article_id} to={`/articles/${article_id}`}>
             <ArticleListCard key={article_id} 
             title={title} 
@@ -32,7 +32,6 @@ const ArticleList = () => {
             topic={topic}
             comment_count={comment_count}
             votes={votes}
-            article_img_url={article_img_url}           
             created_at={created_at}
             
            />
