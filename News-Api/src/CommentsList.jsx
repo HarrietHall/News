@@ -16,12 +16,11 @@ const CommentsList = () => {
       setArticleData(articleData);
     });
     getArticleComments(article_id).then((commentData) => {
-      console.log(commentData);
       setComments(commentData);
       setIsLoading(false);
     });
   }, []);
-
+console.log(comments)
   return (
     <section className="comments_container">
       <section className="articleCard">
@@ -35,15 +34,15 @@ const CommentsList = () => {
         <p>Votes: {articleData.votes}</p>
       </section>
       <br />
-      {comments.map(({comment_id, author, body, votes, created_at }) => (
+      {comments.comments !== "" ? (comments.map(({comment_id, author, body, votes, created_at }) => (
         <CommentCard
           key={comment_id}
           author={author}
           body={body}
           votes={votes}
           created_at={dateFormatter(created_at)}
-        />
-      ))}
+        /> 
+      ))) : ( "No comments yet")}
     </section>
   );
 };

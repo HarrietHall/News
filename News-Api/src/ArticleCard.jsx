@@ -14,6 +14,9 @@ const ArticleCard = ({}) => {
       setArticleData(articleData);
     });
   }, []);
+  
+console.log(typeof articleData.comment_count)
+
   return (
     <section className="articleCard">
       <h1>{articleData.title}</h1>
@@ -28,7 +31,10 @@ const ArticleCard = ({}) => {
           to={`/articles/${article_id}/comments`}
         >
           <button aria-label="view_article_comments">
-            View all {articleData.comment_count} comments
+           {articleData.comment_count === "0" ? "Be the first to comment" : 
+           articleData.comment_count === "1" ? "View comment"  : 
+           `View all ${articleData.comment_count} comments`
+            }
           </button>
         </Link>
       </p>
