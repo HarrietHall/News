@@ -1,7 +1,7 @@
 import './ArticleListCard.css'
 
 
-const ArticleListCard = ({title, author, topic, comment_count,votes,  article_img_url, created_at}) => {
+const ArticleListCard = ({title, author, topic, comment_count,votes, created_at}) => {
 
     return (
   
@@ -11,8 +11,7 @@ const ArticleListCard = ({title, author, topic, comment_count,votes,  article_im
         <p>Topic: {topic}</p>
         <p>comment_count: {comment_count}</p>
         <p>votes: {votes}</p>
-        <p>article_img_url: {article_img_url}</p>
-        <p>created_at: {created_at}</p>
+               <p>created_at: {created_at}</p>
       </li>
     );
   };
