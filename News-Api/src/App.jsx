@@ -3,7 +3,7 @@ import Articles from "./Articles.jsx"
 import ArticleCard from "./ArticleCard.jsx";
 import Nav from "./Nav.jsx";
 import CommentsList from "./CommentsList.jsx";
-import { UserProvider} from "./User.jsx";
+import { UserProvider} from "./UseContext.jsx";
 
 import './App.css'
 
