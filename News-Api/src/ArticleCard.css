@@ -9,3 +9,11 @@ button{
 button:hover {
     background-color: rgb(50, 232, 214);
 }
+
+#buttonContainer {
+    display:inline-flex;
+    gap: 3px;
+  
+    
+    
+}
