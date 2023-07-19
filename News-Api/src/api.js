@@ -22,3 +22,20 @@ export const getArticleComments = (article_id) => {
   });
 };
 
+export const patchArticleVotes = (article_id) => {
+    const patchRequestBody = {
+     inc_votes: newVotes
+    };
+    return newsApi
+      .patch(`/articles/${article_id}`, patchRequestBody)
+      .then((res) => {
+          return res.data.article;
+      });
+  };
+  
+  export const getUsers = () => {
+    return newsApi.get('/users').then((res) => {
+      return res.data.users
+    })
+  
+  }
