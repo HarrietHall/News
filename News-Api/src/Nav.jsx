@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { UserContext } from "./UseContext.jsx";
+import { UserContext } from "./UserContext.jsx";
 import { getUsers } from "./api.js";
 
 const Nav = () => {

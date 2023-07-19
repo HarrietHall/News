@@ -4,7 +4,7 @@ import { getArticleById, patchArticleVotes } from "./api.js";
 import { Link } from "react-router-dom";
 import "./ArticleCard.css";
 import { dateFormatter } from "./dateUtils.js";
-import { UserContext } from "./UseContext.jsx";
+import { UserContext } from "./UserContext.jsx";
 
 
 const ArticleCard = ({}) => {
