@@ -22,7 +22,7 @@ export const getArticleComments = (article_id) => {
   });
 };
 
-export const patchArticleVotes = (article_id) => {
+export const patchArticleVotes = (article_id, newVotes) => {
     const patchRequestBody = {
      inc_votes: newVotes
     };
