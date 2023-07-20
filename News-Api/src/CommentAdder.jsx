@@ -2,11 +2,11 @@ import { postComment } from "./api.js";
 import { useState, useContext } from "react";
 import "./CommentAdder.css";
 
-
-const CommentAdder = ({ setComments, article_id, user}) => {
-    console.log(user)
-  const [newComment, setNewComment] = useState("")
+const CommentAdder = ({ setComments, article_id, user }) => {
+  const [newComment, setNewComment] = useState("");
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   useContext;
   const handleChange = (event) => {
     setNewComment(event.target.value);
@@ -15,25 +15,28 @@ const CommentAdder = ({ setComments, article_id, user}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newComment.length <= 100) {
-      postComment(article_id,newComment, user).then((postedComment) => {
-          console.log(postComment);
-              setComments((currentComments) => {
+        setIsLoading(true);
+      postComment(article_id, newComment, user).then((postedComment) => {
+
+        setComments((currentComments) => {
           return [postedComment, ...currentComments];
         });
         setNewComment("");
+        setIsLoading(false);
       });
     } else {
       setIsError(true);
     }
   };
-
+  if (isLoading) return <p>Posting comment...</p>;
   return (
     <form className="CommentAdder" onSubmit={handleSubmit}>
-      <label htmlFor="new-comment">Write your comment</label>
+      <label htmlFor="new-comment">Add a comment:</label>
       <textarea id="new-comment" value={newComment} onChange={handleChange} />
       {user ? (
         <button
-          disabled={newComment.length > 100}
+          disabled={newComment.length > 100 
+            || newComment.length < 1}
           className="comment-adder"
           type="submit"
         >
@@ -49,7 +52,10 @@ const CommentAdder = ({ setComments, article_id, user}) => {
       )}
 
       {isError ? (
+       
+       
         <p>Too many characters {100 - newComment.length}</p>
+
       ) : (
         <p>{100 - newComment.length} characters left</p>
       )}
