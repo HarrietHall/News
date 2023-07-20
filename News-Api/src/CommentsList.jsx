@@ -20,7 +20,7 @@ const CommentsList = () => {
       setIsLoading(false);
     });
   }, []);
-console.log(comments)
+  if (isLoading) return <p>Loading...</p>;
   return (
     <section className="comments_container">
       <section className="articleCard">
