@@ -7,8 +7,9 @@ import { dateFormatter } from "./dateUtils.js";
 import { UserContext } from "./UserContext.jsx";
 
 
-const ArticleCard = ({}) => {
+const ArticleCard = () => {
     const { article_id } = useParams();
+  
     const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [articleData, setArticleData] = useState({});
@@ -21,14 +22,15 @@ const ArticleCard = ({}) => {
   useEffect(() => {
     setIsLoading(true);
     getArticleById(article_id).then((articleData) => {
-   
-      setArticleData(articleData);
+     setArticleData(articleData);
+ 
+
      setIsLoading(false);
     });
   }, []);
 
 
-  const handleLikeClick = () => {
+ const handleLikeClick = () => {
 
    
     setLikeVotes((currentLikeVotes) => {
@@ -40,11 +42,17 @@ const ArticleCard = ({}) => {
         return currentDislikeVotes + 1;}
         return currentDislikeVotes})
 
-      patchArticleVotes(article_id)
+      patchArticleVotes(article_id, 1).then(() => {
+        setArticleData((previousData) => ({
+        ...previousData,
+        votes: previousData.votes + 1
+        }))
+       } )
       .catch((err) => {
         setLikeVotes((currentLikeVotes) => {
           return currentLikeVotes - 1;
         });
+   
         setLikeError(true);
       });
     } 
@@ -59,7 +67,13 @@ const ArticleCard = ({}) => {
           return currentLikeVotes - 1;}
           return currentLikeVotes})
       
-      patchArticleVotes(article_id).catch((err) => {
+      patchArticleVotes(article_id, -1).then(() => {
+        setArticleData((previousData) => ({
+        ...previousData,
+        votes: previousData.votes - 1
+        }))
+       } ).catch((err) => {
+       
         setDislikeVotes((currentDislikeVotes) => {
           return currentDislikeVotes + 1;
         });
@@ -68,6 +82,7 @@ const ArticleCard = ({}) => {
     }
   
     if (isLoading) return <p>Loading...</p>;
+  
   
 
   return (
@@ -78,13 +93,14 @@ const ArticleCard = ({}) => {
       </h2>
       <p>Topic: {articleData.topic}</p>
       <p>{articleData.body}</p>
+      <p>{articleData.votes}</p>
       <div id="buttonContainer">
       {user ? (<button
         aria-label="like this comment"
         onClick={handleLikeClick}
         disabled={likeVotes > 0}
       >
-        👍{articleData.votes + likeVotes}
+        👍
       </button>
       ):(
         <div>
@@ -93,7 +109,7 @@ const ArticleCard = ({}) => {
         onClick={handleLikeClick}
         disabled={!user}
         > 
-        👍{articleData.votes + likeVotes}
+        👍
       </button>
             </div>
       )}
@@ -104,7 +120,7 @@ const ArticleCard = ({}) => {
         onClick={handleDislikeClick}
         disabled={dislikeVotes < 0 } 
         >
-        👎{articleData.votes + dislikeVotes}
+        👎
         </button>
       ):(
         <div>
@@ -113,7 +129,7 @@ const ArticleCard = ({}) => {
           onClick={handleDislikeClick}
           disabled={!user}
           > 
-           👎{articleData.votes + dislikeVotes}
+           👎
         </button>
         
         </div>
@@ -123,9 +139,10 @@ const ArticleCard = ({}) => {
       <br />
       <Link
         className="link_to_comments"
-        key={article_id}
         to={`/articles/${article_id}/comments`}
+     
       >
+
         <button aria-label="view article comments">
           {articleData.comment_count === "0"
             ? "Be the first to comment"
