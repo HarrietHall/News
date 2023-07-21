@@ -6,8 +6,9 @@ const CommentAdder = ({ setComments, article_id, user }) => {
   const [newComment, setNewComment] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+const [postError, setPostError] = useState(false);
 
-  useContext;
+
   const handleChange = (event) => {
     setNewComment(event.target.value);
     setIsError(event.target.value.length > 100);
@@ -17,18 +18,21 @@ const CommentAdder = ({ setComments, article_id, user }) => {
     if (newComment.length <= 100) {
         setIsLoading(true);
       postComment(article_id, newComment, user).then((postedComment) => {
-
         setComments((currentComments) => {
           return [postedComment, ...currentComments];
         });
         setNewComment("");
         setIsLoading(false);
-      });
-    } else {
-      setIsError(true);
+      }).catch((error) => {
+        setPostError(true);
+
+      
+      })
     }
   };
+  if(postError) return <p>Something went wrong...</p>
   if (isLoading) return <p>Posting comment...</p>;
+
   return (
     <form className="CommentAdder" onSubmit={handleSubmit}>
       <label htmlFor="new-comment">Add a comment:</label>
@@ -50,12 +54,8 @@ const CommentAdder = ({ setComments, article_id, user }) => {
           <p id="loginWarning">Must login to add a comment</p>
         </div>
       )}
-
-      {isError ? (
-       
-       
+      {isError ? (    
         <p>Too many characters {100 - newComment.length}</p>
-
       ) : (
         <p>{100 - newComment.length} characters left</p>
       )}
