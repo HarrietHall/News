@@ -150,10 +150,10 @@ const ArticleCard = () => {
             ? "View comment"
             : `View all ${articleData.comment_count} comments`}
         </button>
+        </Link> 
         {!user  &&(
           <p id="loginWarning">Must login to like article</p>
         )}
-      </Link> 
       <br />
       <img
         src={articleData.article_img_url}

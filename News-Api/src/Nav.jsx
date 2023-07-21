@@ -22,17 +22,24 @@ const Nav = () => {
   return (
     <nav className="Nav">
       <Link to="/" className="Nav_link">
-        Home{" "}
+        Home{"            "}
       </Link>
-      <Link to="/articles/:article_id" className="Nav_link">
-        Topics{" "}
+      <Link to="/articles/coding" className="Coding_link">
+        Coding{"            "}
       </Link>
+      <Link to="/articles/cooking" className="Cooking_link">
+        Cooking{"            "}
+      </Link>
+      <Link to="/articles/football" className="football_link">
+        Football
+      </Link>
+
       <form className="login_box" onSubmit={handleLogin}>
         <aside className="user">
           {user ? (
             <p>Logged in as: {user}</p>
-            ) : (
-              <>
+          ) : (
+            <>
               <label htmlFor="login_username">Username:</label>
               <select
                 name="username"
