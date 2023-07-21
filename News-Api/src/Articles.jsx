@@ -14,14 +14,16 @@ const Home = () => {
   useEffect(() => {
     getArticles(topic)
       .then((articleData) => {
-        setIsLoading(true);
+       
         setArticles(articleData);
         setIsLoading(false);
       })
       .catch((error) => {
         setIsError(true);
-        console.log(error, "error");
-      });
+       
+       
+      })
+       setIsLoading(true);
   }, [topic]);
 
   if (isLoading) return <p>Loading...</p>;
@@ -29,7 +31,7 @@ const Home = () => {
 
   return (
     <section className="Articles">
-      <Header title="Article List" />
+      <Header title="Articles" />
       <ul className="Article_list">
         {articles.map(
           ({ article_id, title, author, topic, comment_count, created_at }) => (
