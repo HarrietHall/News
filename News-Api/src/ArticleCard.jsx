@@ -9,7 +9,7 @@ import { UserContext } from "./UserContext.jsx";
 
 const ArticleCard = () => {
     const { article_id } = useParams();
-  
+    const [isError, setIsError] = useState(false);
     const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [articleData, setArticleData] = useState({});
@@ -20,13 +20,15 @@ const ArticleCard = () => {
 
 
   useEffect(() => {
-    setIsLoading(true);
+  
     getArticleById(article_id).then((articleData) => {
      setArticleData(articleData);
  
 
      setIsLoading(false);
-    });
+    }).catch((error) => {
+      setIsError(true);
+        });
   }, []);
 
 
@@ -83,7 +85,7 @@ const ArticleCard = () => {
   
     if (isLoading) return <p>Loading...</p>;
   
-  
+    if (isError) return <p>Something went wrong...</p>;
 
   return (
     <section className="articleCard">
@@ -150,10 +152,10 @@ const ArticleCard = () => {
             ? "View comment"
             : `View all ${articleData.comment_count} comments`}
         </button>
+        </Link> 
         {!user  &&(
           <p id="loginWarning">Must login to like article</p>
         )}
-      </Link> 
       <br />
       <img
         src={articleData.article_img_url}
