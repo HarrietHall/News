@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getArticleComments, getArticleById } from "./api.js";
 import { useParams } from "react-router-dom";
 import CommentCard from "./CommentCard.jsx";
 import { dateFormatter } from "./dateUtils.js";
+import CommentAdder from "./CommentAdder.jsx"; 
+import { UserContext } from "./UserContext.jsx";
 import "./CommentsList.css";
 
+
+
+
 const CommentsList = () => {
+  const { user, setUser } = useContext(UserContext);
   const [articleData, setArticleData] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +40,7 @@ const CommentsList = () => {
         <p>Votes: {articleData.votes}</p>
       </section>
       <br />
+      <CommentAdder setComments={setComments} article_id={article_id} user={user} />
       {comments.comments !== "" ? (comments.map(({comment_id, author, body, votes, created_at }) => (
         <CommentCard
           key={comment_id}
