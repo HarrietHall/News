@@ -24,13 +24,13 @@ const Nav = () => {
       <Link to="/" className="Nav_link">
         Home{"            "}
       </Link>
-      <Link to="/articles/coding" className="Coding_link">
+      <Link to="/coding" className="Coding_link">
         Coding{"            "}
       </Link>
-      <Link to="/articles/cooking" className="Cooking_link">
+      <Link to="/cooking" className="Cooking_link">
         Cooking{"            "}
       </Link>
-      <Link to="/articles/football" className="football_link">
+      <Link to="/football" className="football_link">
         Football
       </Link>
 
