@@ -4,9 +4,9 @@ const newsApi = axios.create({
   baseURL: "https://news-api-ney0.onrender.com/api",
 });
 
-export const getArticles = (topic) => {
-
-  return newsApi.get("/articles", {params: {topic: topic}}).then((res) => {
+export const getArticles = (topic, sort_by, order) => {
+  console.log(sort_by)
+      return newsApi.get("/articles", {params: {topic: topic, sort_by: sort_by, order: order}}).then((res) => {
     return res.data.article;
   });
 };
@@ -18,8 +18,8 @@ export const getArticleById = (article_id) => {
   });
 };
 
-export const getArticleComments = (article_id) => {
-  return newsApi.get(`/articles/${article_id}/comments`).then((res) => {
+export const getArticleComments = (article_id, comment_id) => {
+  return newsApi.get(`/articles/${article_id}/comments`, {params: {comment_id: comment_id}}).then((res) => {
     return res.data.comments;
   });
 };
@@ -52,3 +52,4 @@ export const patchArticleVotes = (article_id, newVotes) => {
       return res.data.comment
     })
   }
+

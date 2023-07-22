@@ -15,13 +15,13 @@ const CommentsList = () => {
   const [articleData, setArticleData] = useState([]);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { article_id } = useParams();
+  const { article_id, comment_id } = useParams();
 
   useEffect(() => {
     getArticleById(article_id).then((articleData) => {
       setArticleData(articleData);
     });
-    getArticleComments(article_id).then((commentData) => {
+    getArticleComments(article_id, comment_id).then((commentData) => {
       setComments(commentData);
       setIsLoading(false);
     });
@@ -42,8 +42,11 @@ const CommentsList = () => {
       <br />
       <CommentAdder setComments={setComments} article_id={article_id} user={user} />
       {comments.comments !== "" ? (comments.map(({comment_id, author, body, votes, created_at }) => (
-        <CommentCard
-          key={comment_id}
+        <CommentCard 
+        setComments={setComments} 
+        key={comment_id}
+        comment_id={comment_id}
+        user={user}
           author={author}
           body={body}
           votes={votes}
