@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { UserContext } from "./UserContext.jsx";
 import { getUsers } from "./api.js";
+import './Nav.css'
 
 const Nav = () => {
   const [users, setUsers] = useState([]);
@@ -21,7 +22,7 @@ const Nav = () => {
 
   return (
     <nav className="Nav">
-      <Link to="/" className="Nav_link">
+      <Link to="/" className="Home_link">
         Home{"            "}
       </Link>
       <Link to="/coding" className="Coding_link">
