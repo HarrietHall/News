@@ -6,8 +6,7 @@ import { dateFormatter } from "./dateUtils.js";
 import CommentAdder from "./CommentAdder.jsx";
 import { UserContext } from "./UserContext.jsx";
 import Error from "./Error.jsx";
-
-import "./CommentListCard.css";
+import "./CommentsList.css";
 
 const CommentsList = () => {
   const { user, setUser } = useContext(UserContext);
@@ -56,8 +55,7 @@ const CommentsList = () => {
         <p>{articleData.body}</p>
         <p>Votes: {articleData.votes}</p>
       </section>
-      <br />
-      <CommentAdder
+           <CommentAdder
         setComments={setComments}
         article_id={article_id}
         user={user}
