@@ -1,0 +1,10 @@
+#sort_by { 
+    width: 120px;
+    height: 30px;
+    font-size: medium;
+}
+
+.sortByLabel {
+    font-size: large;
+
+}
