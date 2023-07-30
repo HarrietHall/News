@@ -1,6 +1,7 @@
 import { postComment } from "./api.js";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import "./CommentAdder.css";
+import Error from "./Error.jsx"
 
 const CommentAdder = ({ setComments, article_id, user }) => {
   const [newComment, setNewComment] = useState("");
@@ -16,7 +17,7 @@ const [postError, setPostError] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newComment.length <= 100) {
-        setIsLoading(true);
+    
       postComment(article_id, newComment, user).then((postedComment) => {
         setComments((currentComments) => {
           return [postedComment, ...currentComments];
@@ -24,13 +25,20 @@ const [postError, setPostError] = useState(false);
         setNewComment("");
         setIsLoading(false);
       }).catch((error) => {
-        setPostError(true);
-
-      
+        setPostError(error);
       })
     }
   };
-  if(postError) return <p>Something went wrong...</p>
+
+  if (postError) {
+    return (
+      <Error
+        errorStatus={postError.response.status}
+        errorMessage={postError.response.data.msg}
+      />
+    );
+  }
+
   if (isLoading) return <p>Posting comment...</p>;
 
   return (
