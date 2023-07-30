@@ -1,0 +1,35 @@
+.Home_link {
+    color:darkviolet;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.Coding_link {
+    color:darkviolet;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.Cooking_link {
+    color:darkviolet;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.football_link {
+    color:darkviolet;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#loginUsername {
+    width: 120px;
+    height: 30px;
+    font-size: medium;
+    
+}
+

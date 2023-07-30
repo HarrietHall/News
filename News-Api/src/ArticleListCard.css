@@ -1,4 +1,6 @@
 .articleListCard {
     border: 5px solid ;
-    }
-    
+    border-color: darkviolet;
+    margin-bottom: 10px;
+}
+
