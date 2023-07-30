@@ -4,31 +4,29 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import ArticleListCard from "./ArticleListCard.jsx";
 import Header from "./Header.jsx";
 import { dateFormatter } from "./dateUtils.js";
+import Error from "./Error.jsx";
+import './Articles.css'
 
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const { topic } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortByQuery = searchParams.get("sort_by") || "created_at"
-  const orderQuery = searchParams.get("order") || "desc"
- 
+  const sortByQuery = searchParams.get("sort_by") || "created_at";
+  const orderQuery = searchParams.get("order") || "desc";
+  const { topic } = useParams();
+
   const setSortBy = (option) => {
-    const currentSortBy = searchParams.get("sort_by");
-    const order = currentSortBy === option && searchParams.get("order") === "asc" ? "desc" : "asc";
-  
     const newParams = new URLSearchParams(searchParams);
     newParams.set("sort_by", option);
-    newParams.set("order", order);
-  
+
     setSearchParams(newParams);
   };
 
   const setSortOrder = (direction) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set("order", direction)
-       setSearchParams(newParams);
+    newParams.set("order", direction);
+    setSearchParams(newParams);
   };
   useEffect(() => {
     getArticles(topic, sortByQuery, orderQuery)
@@ -37,23 +35,32 @@ const Articles = () => {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setIsError(error);
       });
-    setIsLoading(true);
   }, [topic, sortByQuery, orderQuery]);
 
+  if (isError) {
+    return (
+      <Error
+        errorStatus={isError.response.status}
+        errorMessage={isError.response.data.msg}
+      />
+    );
+  }
+
+  let pageHeader = "Articles";
+  if (topic !== undefined) {
+    pageHeader = `Articles: ${topic}`;
+  }
+
   if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Something went wrong...</p>;
 
   return (
     <section className="Articles">
-      <Header title="Articles" />
-      <button onClick={() => setSortOrder("asc")}>Ascending</button>
-      <button onClick={() => setSortOrder("desc")}>Descending</button>
-      <button onClick={() => setSortBy("comment_count")}>Comment count</button>
-      {/* <button onClick={() => setSortBy("desc")}>Descending</button> */}
-     {/* <label htmlFor="Sort_by_box">Sortby:</label>
-      <select
+      <Header title={pageHeader} />
+      <div className="sortByLabel"></div>
+      <label htmlFor="Sort_by_box">Sort by: </label>
+        <select
         name="sort_by_option"
         id="sort_by"
         value={sortByQuery}
@@ -61,12 +68,16 @@ const Articles = () => {
           setSortBy(event.target.value);
         }}
       >
-      
-        <option value="created_at">Date</option>
-
-        <option value="comment_count">Comment count</option>
+        <option value="created_at">Date posted</option>
+        <option value="title">Title</option>
+        <option value="author">Author</option>
+        {topic === undefined ? <option value="topic">Topic</option> : null}
       </select>
-     */}
+      { sortByQuery === "created_at" ? 
+      <div>
+      <button onClick={() => setSortOrder("asc")}>Ascending</button>
+      <button onClick={() => setSortOrder("desc")}>Descending</button> </div>: <div> <button onClick={() => setSortOrder("asc")}>A - Z</button>
+      <button onClick={() => setSortOrder("desc")}>Z - A</button></div>}
       {/* <option value="votes">Votes</option> */}
 
       <ul className="Article_list">
