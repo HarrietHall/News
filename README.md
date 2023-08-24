@@ -1,7 +1,7 @@
 Nc-News API
 
 
-The hosted version can be found =: ...........................
+The hosted version can be found at: https://nc-news-api-live.netlify.app/
 
 
 Northcoders News API is a project aimed at demonstrating the implementation of a front-end application using React. It provides an interface to view articles, rate them with upvotes and downvotes, and participate in discussions through comments.
